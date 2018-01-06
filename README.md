@@ -21,19 +21,21 @@ You can also modify the number of trials and the maximum number of arms. (They a
 If you want to add another arm, you need to modify "./arms/prob.d" and add success probability of the arm.
 
 ## Result
+   ```
    ------------------------------
    Total Trials:  99
    Selected arm: 1
    Reward: 1
    [{Succecc probability, Number of selected}] =  [{0.2 18} {0.4 28} {0.8 36} {0.1 18}]
    ------------------------------
+   ```
 
 | Success Probability | Selected Num |
-----|----|---- 
-Arm A| 0.2 | 18 
-Arm B| 0.4 | 28 
-Arm C| 0.8 | 36
-Arm D| 0.1 | 18
+|----|----|----|
+|Arm A| 0.2 | 18 |
+|Arm B| 0.4 | 28 |
+|Arm C| 0.8 | 36 |
+|Arm D| 0.1 | 18 |
 
 ## Comments
 This was my first time to write code in Golang. <br>
