@@ -2,7 +2,11 @@
 Multi-armed Bandit Algorithms in Golang.
 
 ## What is this
-This is the algorithm to solve multi-armed bandit problem. https://en.wikipedia.org/wiki/Multi-armed_bandit <br>
+This is the algorithm to solve multi-armed bandit problem. <br>
+
+https://en.wikipedia.org/wiki/Multi-armed_bandit <br>
+
+
 Though there are a lot of algorithms to solve this problem, I just only implemented UCB1 strategy one so far.
 
 ## How to Compile
