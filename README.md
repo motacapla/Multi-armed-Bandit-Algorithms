@@ -31,7 +31,7 @@ If you want to add another arm, you need to modify "./arms/prob.d" and add succe
    ```
 
 | Success Probability | Selected Num |
-|----|----|----|
+|:----|:----|:----|
 |Arm A| 0.2 | 18 |
 |Arm B| 0.4 | 28 |
 |Arm C| 0.8 | 36 |
