@@ -30,12 +30,12 @@ If you want to add another arm, you need to modify "./arms/prob.d" and add succe
    ------------------------------
    ```
 
-| Success Probability | Selected Num |
-|:----|:----|:----|
-|Arm A| 0.2 | 18 |
-|Arm B| 0.4 | 28 |
-|Arm C| 0.8 | 36 |
-|Arm D| 0.1 | 18 |
+| Arms | Success Probability | Selected Num |
+|:----:|:-------------------:|:------------:|
+|Arm  A|         0.2         |      18      |
+|Arm  B|         0.4         |      28      |
+|Arm  C|         0.8         |      36      |
+|Arm  D|         0.1         |      18      |
 
 ## Comments
 This was my first time to write code in Golang. <br>
