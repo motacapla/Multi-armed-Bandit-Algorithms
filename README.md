@@ -28,7 +28,7 @@ You can also modify the number of trials and the maximum number of arms. (They a
 
 If you want to add another arm, you need to modify "./arms/prob.d" and add success probability of the arm.
 
-## Result
+## Result (when UCB algorithm is used)
    ```
    ------------------------------
    Total Trials:  99
