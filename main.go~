@@ -72,8 +72,8 @@ func main(){
      }     
 
      if intFlag == 0 {
-     	fmt.Println("--Epsilon-greedy algorithm--")
-     	for ; agent.Trials<MAX_NUM_OF_TRIALS; agent.Trials++{
+
+     for ; agent.Trials<MAX_NUM_OF_TRIALS; agent.Trials++{
          s := algs.Epsilon_Greedy(agent, arm)
          reward := arms.Bernoulli_try(&arm[s])
          agent.Reward[s][agent.Trials] = reward
@@ -88,11 +88,10 @@ func main(){
              fmt.Println("Arm:", i, "=>", arm[i].Count, "times")
          }
          fmt.Println("------------------------------\n")
-       }
+     }
      } else if intFlag == 1{
-       fmt.Println("--UCB1 algorithm--")
-
-       for ; agent.Trials<MAX_NUM_OF_TRIALS; agent.Trials++{     
+     
+     for ; agent.Trials<MAX_NUM_OF_TRIALS; agent.Trials++{     
          //UCB1で引くアームを選択
      	 s := algs.UCB1(agent, arm, lineCount)
 

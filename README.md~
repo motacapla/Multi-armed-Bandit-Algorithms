@@ -6,7 +6,8 @@ This is the algorithm to solve multi-armed bandit problem. <br>
 
 https://en.wikipedia.org/wiki/Multi-armed_bandit <br>
 
-Though there are a lot of algorithms to solve this problem, I implemented UCB1 and epsilon-greedy strategy one so far. <br>
+
+Though there are a lot of algorithms to solve this problem, I just only implemented UCB1 strategy one so far. <br>
 
 To be simple, I suppose that all of success probabilities of arms will follow a bernoulli distribution. <br>
 
@@ -38,3 +39,5 @@ If you want to add another arm, you need to modify "./arms/prob.d" and add succe
 
 ## Comments
 This was my first time to write code in Golang. <br>
+
+I would like to implement another algorithm like epsilon-greedy, softmax and Thompson Sampling. 
