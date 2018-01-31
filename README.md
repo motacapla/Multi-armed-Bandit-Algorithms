@@ -14,12 +14,14 @@ To be simple, I suppose that all of success probabilities of arms will follow a 
 ```$ go build main.go```
 
 ## How to Use
-```$ ./main -s=./arms/prob.d -i=[Number]```  <br>
+```$ ./main -s=[FilePath] -i=[Number]```  <br>
 * -s = 
-  * file path for prob.d.
+  * file path for prob.d
 * -i = 
-  * 0:epsilon-greedy,  
-  * 1:UCB1.
+  * 0 : epsilon-greedy,  
+  * 1 : UCB1
+
+e.g, ./main -s=./arms/prob.d -i=1 <br>
 
 You can also modify the number of trials and the maximum number of arms. (They are defined in main.go as constant.)
 
