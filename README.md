@@ -15,9 +15,8 @@ To be simple, I suppose that all of success probabilities of arms will follow a 
 
 ## How to Use
 ```$ ./main -s=./arms/prob.d -i=[Number]```  <br>
--s : file path for prob.d <br>
--i : 0 -> epsilon-greedy <br>
-     1 -> UCB1 <br>
+*-s = file path for prob.d 
+*-i = 0:epsilon-greedy,  1:UCB1 
 
 You can also modify the number of trials and the maximum number of arms. (They are defined in main.go as constant.)
 
