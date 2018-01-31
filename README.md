@@ -14,7 +14,11 @@ To be simple, I suppose that all of success probabilities of arms will follow a 
 ```$ go build main.go```
 
 ## How to Use
-```$ ./main ./arms/prob.d```  <br>
+```$ ./main -s=./arms/prob.d -i=[Number]```  <br>
+-s : file path for prob.d <br>
+-i : 0 -> epsilon-greedy <br>
+     1 -> UCB1 <br>
+
 You can also modify the number of trials and the maximum number of arms. (They are defined in main.go as constant.)
 
 If you want to add another arm, you need to modify "./arms/prob.d" and add success probability of the arm.
