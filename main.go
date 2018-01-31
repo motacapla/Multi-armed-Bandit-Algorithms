@@ -61,13 +61,15 @@ func main(){
 	  arm[i].Count = 0
      }     
 
-     for ; agent.Trials< MAX_NUM_OF_TRIALS; agent.Trials++{     
+     /*
+     for ; agent.Trials<MAX_NUM_OF_TRIALS; agent.Trials++{     
          //UCB1で引くアームを選択
      	 s := algs.UCB1(agent, arm, lineCount)
 
 	 //アームを引いて報酬を取得
 	 reward := arms.Bernoulli_try(&arm[s])
-	 agent.Reward[s][arm[s].Count - 1] = reward
+	 //agent.Reward[s][arm[s].Count - 1] = reward
+	 agent.Reward[s][agent.Trials] = reward
 	 
 	 //状態の確認
 	 fmt.Println("------------------------------")
@@ -75,7 +77,29 @@ func main(){
          fmt.Println("Selected arm:", s)
 	 fmt.Println("Reward:", reward)	 
 	 fmt.Println("[{Succecc probability, Number of selected}] = ", arm)
+	 fmt.Println("[Count]")
+	 for i:=0; i<lineCount; i++{
+	     fmt.Println("Arm:", i, "=>", arm[i].Count, "times")
+	 }
 	 fmt.Println("------------------------------\n")
       }
-              
+      */
+      
+     for ; agent.Trials<MAX_NUM_OF_TRIALS; agent.Trials++{     
+     	 s := algs.Epsilon_Greedy(agent, arm)	 
+	 reward := arms.Bernoulli_try(&arm[s])
+	 agent.Reward[s][agent.Trials] = reward
+	 //状態の確認
+	 fmt.Println("------------------------------")
+	 fmt.Println("Total Trials: ", agent.Trials)
+         fmt.Println("Selected arm:", s)
+	 fmt.Println("Reward:", reward)	 
+	 fmt.Println("[{Succecc probability, Number of selected}] = ", arm)
+	 fmt.Println("[Count]")
+	 for i:=0; i<lineCount; i++{
+	     fmt.Println("Arm:", i, "=>", arm[i].Count, "times")
+	 }
+	 fmt.Println("------------------------------\n")
+     }
+     
 }
