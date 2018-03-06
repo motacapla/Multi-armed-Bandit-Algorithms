@@ -18,8 +18,10 @@ To be simple, I suppose that all of success probabilities of arms will follow a 
 * -s = 
   * file path for prob.d
 * -i = 
-  * 0 : epsilon-greedy,  
-  * 1 : UCB1
+  * 0 : Epsilon Greedy,  
+  * 1 : UCB1,
+  * 2 : Softmax,
+  * 3 : Thompson Sampling
 
 e.g, 
 ```$ ./main -s=./arms/prob.d -i=1``` <br>
