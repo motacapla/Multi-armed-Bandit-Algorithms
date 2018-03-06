@@ -13,7 +13,7 @@ import (
 
 const BUFSIZE = 1024
 const MAX_NUM_OF_ARMS = 1024
-const MAX_NUM_OF_TRIALS = 100
+const MAX_NUM_OF_TRIALS = 1000
 
 func main(){      
 
@@ -22,10 +22,9 @@ func main(){
 	stringFlag string
      )
      flag.StringVar(&stringFlag, "s", "blank", "file path of prob.d")
-     flag.IntVar(&intFlag, "i", 0, "0:epsilon-greedy, 1:UCB")
+     flag.IntVar(&intFlag, "i", 0, "0:Epsilon Greedy, 1:UCB, 2:Softmax, 3:Thompson Sampling")
      flag.Parse()
 
-     //設定ファイル読み込み
      var fp *os.File
      var err error
      if stringFlag == "blank" {
@@ -51,7 +50,6 @@ func main(){
      	panic(err)
      }
      
-     //AIの総試行回数と各アームの報酬を初期化
      agent := agent.Agent{}
      agent.Trials = 0
      agent.Reward = make([][]int, lineCount)
@@ -64,7 +62,6 @@ func main(){
 	 }
      }     
           
-     //各アームの成功確率と選択数を設定
      arm := make(arms.Arms, lineCount)     
      for i:=0; i<lineCount; i++{
           arm[i].Prob = p[i]
@@ -77,9 +74,55 @@ func main(){
          s := algs.Epsilon_Greedy(agent, arm)
          reward := arms.Bernoulli_try(&arm[s])
          agent.Reward[s][agent.Trials] = reward
-         //状態の確認
+
+	 PrintStats(agent, arm, s, reward, lineCount)
+
+       }
+     } else if intFlag == 1{
+       fmt.Println("--UCB1 algorithm--")
+
+       for ; agent.Trials<MAX_NUM_OF_TRIALS; agent.Trials++{     
+     	 s := algs.UCB1(agent, arm, lineCount)
+
+	 reward := arms.Bernoulli_try(&arm[s])
+	 //agent.Reward[s][arm[s].Count - 1] = reward
+	 agent.Reward[s][agent.Trials] = reward
+	 
+	 PrintStats(agent, arm, s, reward, lineCount)
+
+      }
+     } else if intFlag == 2{
+     	fmt.Println("--Softmax algorithm--")
+     	for ; agent.Trials<MAX_NUM_OF_TRIALS; agent.Trials++{
+         s := algs.Softmax(agent, arm)
+         reward := arms.Bernoulli_try(&arm[s])
+         agent.Reward[s][agent.Trials] = reward
+
+	 PrintStats(agent, arm, s, reward, lineCount)
+
+       }         
+     } else if intFlag == 3{
+         fmt.Println("--Thompson Sampling algorithm--")
+
+        for ; agent.Trials<MAX_NUM_OF_TRIALS; agent.Trials++{
+
+         s := algs.Thompson_Sampling(agent, arm)
+         reward := arms.Bernoulli_try(&arm[s])
+         agent.Reward[s][agent.Trials] = reward
+
+         PrintStats(agent, arm, s, reward, lineCount)
+
+	 }
+	 
+     } else {
+       fmt.Println("Wrong value was specified. Please use '-help' option.")
+       return
+     }     
+}
+
+func PrintStats(agent agent.Agent, arm arms.Arms, s int, reward int, lineCount int){
          fmt.Println("------------------------------")
-         fmt.Println("Total Trials: ", agent.Trials)
+         fmt.Println("Total Trials: ", agent.Trials+1)
          fmt.Println("Selected arm:", s)
          fmt.Println("Reward:", reward)
          fmt.Println("[{Succecc probability, Number of selected}] = ", arm)
@@ -87,34 +130,17 @@ func main(){
          for i:=0; i<lineCount; i++{
              fmt.Println("Arm:", i, "=>", arm[i].Count, "times")
          }
-         fmt.Println("------------------------------\n")
-       }
-     } else if intFlag == 1{
-       fmt.Println("--UCB1 algorithm--")
-
-       for ; agent.Trials<MAX_NUM_OF_TRIALS; agent.Trials++{     
-         //UCB1で引くアームを選択
-     	 s := algs.UCB1(agent, arm, lineCount)
-
-	 //アームを引いて報酬を取得
-	 reward := arms.Bernoulli_try(&arm[s])
-	 //agent.Reward[s][arm[s].Count - 1] = reward
-	 agent.Reward[s][agent.Trials] = reward
-	 
-	 //状態の確認
-	 fmt.Println("------------------------------")
-	 fmt.Println("Total Trials: ", agent.Trials)
-         fmt.Println("Selected arm:", s)
-	 fmt.Println("Reward:", reward)	 
-	 fmt.Println("[{Succecc probability, Number of selected}] = ", arm)
-	 fmt.Println("[Count]")
-	 for i:=0; i<lineCount; i++{
-	     fmt.Println("Arm:", i, "=>", arm[i].Count, "times")
+	 SumReward := make([]float64, lineCount)
+	 for i:=0; i<agent.Trials+1; i++{	     
+	     for j:=0; j<lineCount; j++{
+	     	 SumReward[j] = SumReward[j] + float64(agent.Reward[j][i])
+	     }
 	 }
-	 fmt.Println("------------------------------\n")
-      }
-     } else {
-       fmt.Println("Wrong value was specified. Please use '-help' option.")
-       return
-     }     
+	 for i:=0; i<lineCount; i++{
+	     SumReward[i] = SumReward[i] / float64(arm[i].Count)
+
+	 }
+	 fmt.Println("Total Rewards:", SumReward)
+         fmt.Println("------------------------------\n")
+                  
 }
