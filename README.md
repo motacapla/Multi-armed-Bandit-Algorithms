@@ -46,4 +46,5 @@ If you want to add another arm, you need to modify "./arms/prob.d" and add succe
 |Arm  D|         0.1         |      18      |
 
 ## Comments
-This was my first time to write code in Golang. <br>
+Using a pseudo-random number generator by leesper <br>
+https://github.com/leesper/go_rng
