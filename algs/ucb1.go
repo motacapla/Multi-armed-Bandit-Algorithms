@@ -17,13 +17,11 @@ func UCB1(agent agent.Agent, arm arms.Arms, count int)(int){
 	 }
      }
 
-     //標本平均を算出
      x_mean := Sample_Mean(agent, arm, count)
 
-     //確認
-     fmt.Println(x_mean)
+     //fmt.Println(x_mean)
 
-     //UCB1の評価式より, アームを選定
+     //choose the best arm index
      val := make([]float64, count)     
      s := 0
      max := 0.0
